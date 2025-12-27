@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nuôi Tôi - Trang Chủ</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>body { background-color: #f0f2f5; font-family: sans-serif; }</style>
+    </head>
+    <body class="pb-10">
+        <nav class="bg-white shadow-sm sticky top-0 z-50">
+            <div class="max-w-md mx-auto px-2">
+                <div
+                    class="grid grid-cols-4 h-14 items-center text-xs sm:text-sm font-bold text-gray-500">
+                    <a href="/"
+                        class="text-center text-blue-600 border-b-2 border-blue-600 h-full flex items-center justify-center">TRANG
+                        CHỦ</a>
+                    <a href="/guide"
+                        class="text-center hover:text-gray-800 h-full flex items-center justify-center">HƯỚNG
+                        DẪN</a>
+                    <a href="/supporters"
+                        class="text-center hover:text-gray-800 h-full flex items-center justify-center">ANH
+                        CHỊ NUÔI</a>
+                    <a href="/feedback"
+                        class="text-center hover:text-gray-800 h-full flex items-center justify-center">GÓP
+                        Ý</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="bg-white border-b border-gray-100 pb-8 pt-6">
+            <div class="max-w-md mx-auto px-4 text-center">
+                <h1
+                    class="text-2xl font-bold text-gray-800 mb-1">"Nuôi Tôi"</h1>
+                <p class="text-gray-500 text-sm mb-4">Hãy nuôi tôi, tôi sẽ sao kê đầy đủ!</p>
+
+                <div class="mb-4 space-y-2 text-left">
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 ml-1">Tên
+                            của Anh Chị Nuôi *</label>
+                        <input type="text" id="inputName"
+                            placeholder="VD: nguoi dep thanh hoa"
+                            class="w-full border border-gray-300 rounded-lg p-2 text-sm outline-none focus:border-blue-500"
+                            oninput="updateQR()">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 ml-1">Lời
+                            nhắn</label>
+                        <input type="text" id="inputMsg"
+                            placeholder="VD: noi rang minh la nguoi thanh hoa"
+                            class="w-full border border-gray-300 rounded-lg p-2 text-sm outline-none focus:border-blue-500"
+                            oninput="updateQR()">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 ml-1">Hãy
+                            nuôi tôi</label>
+                        <input type="number" id="inputAmount"
+                            placeholder="Hãy nhập số tiền mà các đại phú gia muốn bao nuôi tôi" min="0"
+                            class="w-full border border-gray-300 rounded-lg p-2 text-sm outline-none focus:border-blue-500"
+                            oninput="updateQR()" onchange="updateQR()">
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-2 rounded-xl inline-block shadow-lg border border-gray-100 relative group">
+                    <img id="qrImage" src="/static/images/QR_Code.png"
+                        alt="QR Donate"
+                        class="w-48 h-48 object-contain mx-auto rounded-lg">
+                    <p
+                        class="mt-2 text-xs font-bold text-blue-600 animate-pulse">Quét
+                        mã này nhé!</p>
+                </div>
+                <p class="mt-3 text-xs font-mono text-gray-400">VietinBank -
+                    105882254869 - LE HONG TAN</p>
+            </div>
+        </div>
+
+        <div class="max-w-md mx-auto -mt-6 px-4 relative z-10">
+            <div
+                class="bg-white rounded-xl shadow-lg p-4 grid grid-cols-3 divide-x divide-gray-100 text-center border border-gray-100">
+                <div><p class="text-[10px] text-gray-400 font-bold uppercase">Đã
+                        nhận</p><p class="text-green-600 font-bold">{{ total_in
+                        }}</p></div>
+                <div><p class="text-[10px] text-gray-400 font-bold uppercase">Số
+                        dư</p><p class="text-blue-600 font-bold text-xl">{{
+                        balance }}</p></div>
+                <div><p class="text-[10px] text-gray-400 font-bold uppercase">Đã
+                        chi</p><p class="text-red-500 font-bold">{{ total_out
+                        }}</p></div>
+            </div>
+        </div>
+
+        <div class="max-w-md mx-auto mt-6 px-4">
+            <h3
+                class="text-gray-800 font-bold mb-3 text-sm flex items-center gap-2"><span
+                    class="w-1 h-4 bg-blue-500 rounded-full block"></span>Nhật
+                ký chi tiêu</h3>
+            {% for item in feed %}
+            <div
+                class="bg-white rounded-xl shadow-sm mb-4 overflow-hidden border border-gray-100">
+                <div
+                    class="p-3 flex items-center justify-between border-b border-gray-50">
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600">ME</div>
+                        <div><p
+                                class="text-sm font-semibold text-gray-800">Admin</p><p
+                                class="text-[10px] text-gray-400">{{
+                                item.created_at }}</p></div>
+                    </div>
+                    <div
+                        class="text-red-500 font-bold text-xs bg-red-50 px-2 py-1 rounded">-
+                        {{ "{:,.0f}".format(item.amount) }}</div>
+                </div>
+                <div class="p-3"><p class="text-gray-700 text-sm">{{
+                        item.description }}</p></div>
+                {% if item.image_path %}<div
+                    class="w-full bg-gray-50 border-t border-gray-50"><img
+                        src="/{{ item.image_path }}"
+                        class="w-full h-auto object-cover"></div>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <script>
+        const BANK_ID = "VietinBank"; 
+        const ACCOUNT_NO = "105882254869"; 
+        const TEMPLATE = "compact2";
+
+        function removeVietnameseTones(str) {
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+            str = str.replace(/đ/g,"d");
+            str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+            str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+            str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+            str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+            str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+            str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+            str = str.replace(/Đ/g, "D");
+            return str;
+        }
+
+        function updateQR() {
+            let name = document.getElementById('inputName').value.trim();
+            let msg = document.getElementById('inputMsg').value.trim();
+            
+            // Lấy thẻ input số tiền
+            let amountInput = document.getElementById('inputAmount');
+            let amount = parseInt(amountInput.value) || 0;
+
+            // --- CHẶN SỐ ÂM TẠI ĐÂY ---
+            if (amount < 0) {
+                amount = 0;           // Về mặt logic thì set bằng 0
+                amountInput.value = 0; // Về mặt hiển thị thì sửa lại số 0 cho người dùng thấy
+            }
+            // ---------------------------
+
+            let cleanName = removeVietnameseTones(name).replace(/\s+/g, '');
+            let cleanMsg = removeVietnameseTones(msg);
+
+            // Nếu không nhập tên -> Hiện QR gốc (Ảnh tĩnh trong folder static)
+            if (cleanName === "") {
+                document.getElementById('qrImage').src = "/static/images/QR_Code.png";
+                return;
+            }
+            
+            // Nếu có tên -> Tạo QR mới kèm chữ SEVQR
+            let finalContent = `SEVQR ${cleanName} ${cleanMsg}`.trim();
+
+            let qrURL = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-${TEMPLATE}.png?amount=${amount}&addInfo=${encodeURIComponent(finalContent)}&accountName=LE HONG TAN`;
+            document.getElementById('qrImage').src = qrURL;
+        }
+    </script>
+    </body>
+</html>

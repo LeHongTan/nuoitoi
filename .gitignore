@@ -1,0 +1,16 @@
+# Biến môi trường (Quan trọng nhất)
+.env
+
+# Môi trường ảo Python (Dựa trên hình của bạn có cả 2 thư mục này)
+venv/
+.venv/
+
+# Cache của Python
+__pycache__/
+*.py[cod]
+
+# Database cục bộ (Nếu bạn còn giữ file sqlite cũ)
+*.db
+
+# Các file rác của hệ thống macOS
+.DS_Store

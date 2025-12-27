@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anh Chị Nuôi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { background-color: #f0f2f5; font-family: sans-serif; }</style>
+</head>
+<body class="bg-gray-50 pb-10">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-md mx-auto grid grid-cols-4 h-14 text-xs sm:text-sm font-bold text-gray-500">
+            <a href="/" class="flex items-center justify-center hover:text-blue-600 hover:bg-gray-50">TRANG CHỦ</a>
+            <a href="/guide" class="flex items-center justify-center hover:text-blue-600 hover:bg-gray-50">HƯỚNG DẪN</a>
+            <a href="/supporters" class="flex items-center justify-center text-blue-600 border-b-2 border-blue-600 bg-blue-50">ANH CHỊ NUÔI</a>
+            <a href="/feedback" class="flex items-center justify-center hover:text-blue-600 hover:bg-gray-50">GÓP Ý</a>
+        </div>
+    </nav>
+
+    <div class="max-w-md mx-auto mt-6 px-4">
+        <div class="text-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">Anh Chị Nuôi</h2>
+            <p class="text-sm text-gray-500">Cảm ơn các anh chị nuôi đã yêu thương.</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            {% if supporters %}
+                <ul class="divide-y divide-gray-50">
+                    {% for s in supporters %}
+                    <li class="p-4 flex items-center justify-between hover:bg-gray-50">
+                        <div class="flex items-center gap-3">
+                            <img src="https://ui-avatars.com/api/?name={{ s.sender_name }}&background=random&color=fff&size=40" class="w-10 h-10 rounded-full">
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">{{ s.sender_name }}</p>
+                                <p class="text-xs text-gray-400">{{ s.created_at }}</p>
+                            </div>
+                        </div>
+                        <span class="text-green-600 font-bold text-sm">+{{ "{:,.0f}".format(s.amount) }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="p-8 text-center text-gray-400 italic">Chưa có dữ liệu...</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

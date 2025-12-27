@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Nuôi Tôi</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100 p-6">
+        <div class="max-w-md mx-auto space-y-8">
+
+            <div class="bg-white p-6 rounded-xl shadow">
+                <h2 class="text-lg font-bold text-green-600 mb-4">1. Nhập Tiền
+                    Donate (IN)</h2>
+                <form action="/api/add_income" method="post" class="space-y-3">
+                    <input type="number" name="amount"
+                        placeholder="Số tiền (VD: 50000)"
+                        class="w-full border p-2 rounded" required>
+                    <input type="text" name="sender_name"
+                        placeholder="Tên Anh Chị Nuôi (VD: Bạn Ẩn Danh)"
+                        class="w-full border p-2 rounded">
+                    <input type="text" name="description"
+                        placeholder="Lời nhắn (VD: Mời cafe)"
+                        class="w-full border p-2 rounded" required>
+                    <button type="submit"
+                        class="w-full bg-green-500 text-white p-2 rounded font-bold">Thêm
+                        Donate</button>
+                </form>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow">
+                <h2 class="text-lg font-bold text-red-600 mb-4">2. Nhập Chi Tiêu
+                    (OUT)</h2>
+                <form action="/api/add_expense" method="post"
+                    enctype="multipart/form-data" class="space-y-3">
+                    <input type="number" name="amount"
+                        placeholder="Số tiền đã chi"
+                        class="w-full border p-2 rounded" required>
+                    <textarea name="description"
+                        placeholder="Nội dung chi (VD: Mua mì tôm)"
+                        class="w-full border p-2 rounded" required></textarea>
+
+                    <label class="block text-sm text-gray-600">Ảnh sao kê/sản
+                        phẩm:</label>
+                    <input type="file" name="file" accept="image/*"
+                        class="w-full text-sm" required>
+
+                    <button type="submit"
+                        class="w-full bg-red-500 text-white p-2 rounded font-bold">Đăng
+                        Sao Kê</button>
+                </form>
+            </div>
+
+            <a href="/" class="block text-center text-blue-500 underline">Về
+                trang chủ xem kết quả</a>
+        </div>
+    </body>
+</html>
