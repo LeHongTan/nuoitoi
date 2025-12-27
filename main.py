@@ -76,6 +76,7 @@ def get_feed():
 
 # --- ROUTES ---
 @app.get("/")
+@app.head("/")
 async def home(request: Request):
     total_in, total_out, balance = get_stats()
     return templates.TemplateResponse("index.html", {
